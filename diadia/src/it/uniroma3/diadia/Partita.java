@@ -26,8 +26,8 @@ public class Partita {
 		giocatore = new Giocatore();
 		labirinto.creaStanze();
 		this.finita = false;
-		this.stanzaCorrente = labirinto.getStanzaIniziale();
-		this.stanzaVincente = labirinto.getStanzaFinale();
+		//this.stanzaCorrente = labirinto.getStanzaIniziale();
+		//this.stanzaVincente = labirinto.getStanzaFinale();
 		
 	}
 		
@@ -84,7 +84,11 @@ public class Partita {
 	public boolean isFinita() {
 		return finita || vinta() || (giocatore.getCfu() == 0);
 	}
-
+	
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu()>0;
+	}
+	
 	/**
 	 * Imposta la partita come finita
 	 *
