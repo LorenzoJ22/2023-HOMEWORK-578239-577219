@@ -36,9 +36,9 @@ public class ComandoVai implements Comando{
 	 /*System.out.println(partita.getStanzaCorrente().getNome());
 	 partita.getGiocatore().setCfu(partita.getGiocatore().getCfu()-1);
 	 */
-	 this.io.mostraMessaggio(partita.getStanzaCorrente().getNome());
-		Giocatore giocatore = partita.getGiocatore();
-		giocatore.setCfu(giocatore.getCfu() - 1);
+	this.io.mostraMessaggio(partita.getStanzaCorrente().getNome());
+	Giocatore giocatore = partita.getGiocatore();
+	giocatore.setCfu(giocatore.getCfu() - 1);
 	}
 	
 	@Override
@@ -59,6 +59,6 @@ public class ComandoVai implements Comando{
 	
 	@Override
 	public String getNome() {
-		return direzione;
+		return NOME; //direzione
 	}
 }

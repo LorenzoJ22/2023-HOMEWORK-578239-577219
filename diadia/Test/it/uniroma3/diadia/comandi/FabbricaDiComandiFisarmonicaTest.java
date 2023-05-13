@@ -21,7 +21,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Before
 	public void setUp() throws Exception {
 		io = new IOConsole();
-		fabbrica = new FabbricaDiComandiFisarmonica(io);
+		fabbrica = new FabbricaDiComandiFisarmonica((IOConsole) io);
 	}
 
 	@After

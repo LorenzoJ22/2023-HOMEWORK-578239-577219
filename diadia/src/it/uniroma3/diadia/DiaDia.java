@@ -1,10 +1,15 @@
 package it.uniroma3.diadia;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
+
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 //import java.util.Scanner;
+
 //import it.uniroma3.diadia.ambienti.Stanza;
 //import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
  * Per giocare crea un'istanza di questa classe e invoca il letodo gioca
@@ -19,7 +24,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 public class DiaDia {
 
-	static final private String MESSAGGIO_BENVENUTO = ""+
+	static final public String MESSAGGIO_BENVENUTO = ""+
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
 			"I locali sono popolati da strani personaggi, " +
@@ -29,28 +34,34 @@ public class DiaDia {
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 	
-	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
+	//static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
 
 	private Partita partita;
-	private IOConsole io;
+	private IO io;
 
 	
-	public DiaDia(IOConsole console) {
-		this.partita = new Partita();
+//	public DiaDia(IO console) {
+//		this.io = console;
+//		this.partita = new Partita();
+//
+//	}
+	public DiaDia(IO console, Labirinto labirinto) {
 		this.io = console;
-
+		this.partita = new Partita(labirinto);
 	}
 
 	public void gioca() {
 		String istruzione; 
 		//Scanner scannerDiLinee;
+		
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 //		System.out.println(MESSAGGIO_BENVENUTO);
 //		scannerDiLinee = new Scanner(System.in);		
-		do		
+		do {		
 			istruzione = io.leggiRiga();
-		while (!processaIstruzione(istruzione));
+		}while (!processaIstruzione(istruzione));
 	}   
+	
 
 
 	/**
@@ -76,10 +87,12 @@ public class DiaDia {
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita); 
 		if (this.partita.vinta())
-		System.out.println("Hai vinto!");
+		//System.out.println("Hai vinto!");
+		io.mostraMessaggio("Hai vinto!");
 		if (!this.partita.giocatoreIsVivo())
-		System.out.println("Hai esaurito i CFU...");
-		return this.partita.isFinita();
+		//System.out.println("Hai esaurito i CFU...");
+			io.mostraMessaggio("Hai esaurito i CFU...");
+			return this.partita.isFinita();
 		
 	/*	Comando daEseguire = new Comando(istruzione);
 		if(daEseguire.getNome()==null) {
@@ -190,9 +203,20 @@ public class DiaDia {
 	}*/
 
 	
+//	public static void main(String[] argc) {
+//		IO console = new IOConsole();
+//		DiaDia gioco = new DiaDia(console);
+//		gioco.gioca();
+//	}
 	public static void main(String[] argc) {
-		IOConsole console = new IOConsole();
-;		DiaDia gioco = new DiaDia(console);
+		IO console = new IOConsole();
+		Labirinto labirinto = new LabirintoBuilder()
+										.addStanzaIniziale("Atrio")
+										.addAttrezzo("martello", 3)
+										.addStanzaVincente("Biblioteca")
+										.addAdiacenza("Atrio", "Biblioteca", "nord")
+										.getLabirinto();
+		DiaDia gioco = new DiaDia(console, labirinto);
 		gioco.gioca();
 	}
 }

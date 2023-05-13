@@ -14,9 +14,13 @@ public class ComandoPrendi implements Comando {
  @Override
   public void esegui(Partita partita) {
 		Attrezzo a = partita.getStanzaCorrente().getAttrezzo(NomeAttrezzo);
+		if(partita.getGiocatore().getBorsa().getPesoRimanente(a)) {
 		partita.getGiocatore().getBorsa().addAttrezzo(a);
 		partita.getStanzaCorrente().removeAttrezzo(a);	
-		
+		}
+		else {
+			io.mostraMessaggio("Attrezzo troppo pesante per entrare nella borsa! Oppure non esiste");
+		}
  }
 	
 	@Override

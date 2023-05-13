@@ -14,6 +14,7 @@ public class ComandoAiuto implements Comando{
 		for(int i=0; i< ELENCO_COMANDI.length; i++) 
 			io.mostraMessaggio(ELENCO_COMANDI[i]+" ");
 		io.mostraMessaggio("");
+		
 	}
 	
 	@Override

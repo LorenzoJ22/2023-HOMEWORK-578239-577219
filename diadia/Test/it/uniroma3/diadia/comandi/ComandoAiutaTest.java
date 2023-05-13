@@ -2,11 +2,11 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
 
 
 import it.uniroma3.diadia.DiaDia;
@@ -14,7 +14,7 @@ import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.fixture.Fixture;
 
 class ComandoAiutaTest {
-
+	List<String> righeDaLeggere;
 	@BeforeEach
 	public void setUp() throws Exception {
 	}
@@ -25,8 +25,9 @@ class ComandoAiutaTest {
 
 	@Test
 	public void testPartitaConComandoAiuto() {
-		String[] righeDaLeggere = {"aiuto","fine"};
-		IOSimulator io = Fixture.creaSimulazionePartitaEGioca(righeDaLeggere);
+		righeDaLeggere.add("aiuto");
+		righeDaLeggere.add("fine");
+		IOSimulator io = Fixture.creaSimulazionePartitaEGiocaEasy(righeDaLeggere);
 		assertTrue(io.hasNextMessaggio());
 		assertEquals(DiaDia.MESSAGGIO_BENVENUTO, io.nextMessaggio());
 		for(int i=0; i < ComandoAiuto.ELENCO_COMANDI.length; i++) {
